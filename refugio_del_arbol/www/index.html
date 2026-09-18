@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#173a32" />
+    <meta name="description" content="Controles locales de Refugio del Árbol" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23173a32' d='M32 4 4 29h8v29h40V29h8z'/%3E%3Cpath fill='%23d86d4a' d='M28 35h8v23h-8z'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Refugio del Árbol</title>
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="refuge-header" aria-labelledby="refuge-title">
+        <img src="./assets/refugio-del-arbol.jpeg" alt="Refugio del Árbol de Allegro Eco Glamping" />
+        <div class="header-topline">
+          <div class="brand-lockup">
+            <img class="brand-logo" src="./assets/allegro-logo.png" alt="Allegro Eco Glamping" />
+            <span>Domo 1</span>
+          </div>
+        </div>
+        <div class="header-copy">
+          <p>Bienvenido a</p>
+          <h1 id="refuge-title">Refugio del Árbol</h1>
+        </div>
+      </section>
+
+      <section class="control-area" aria-labelledby="controls-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" id="today">Controles del domo</p>
+            <h2 id="controls-title">Ambiente</h2>
+          </div>
+        </div>
+
+        <div class="control-grid" id="control-grid" aria-live="polite"></div>
+      </section>
+
+      <footer aria-label="Información de Allegro Eco Glamping">
+        <div class="footer-copy">
+          <p>Gracias por visitarnos. Esperamos que disfrutes un descanso memorable entre la naturaleza.</p>
+          <span>Allegro Eco Glamping</span>
+        </div>
+        <nav class="social-links" aria-label="Redes sociales">
+          <a href="https://www.instagram.com/allegroecoglamping/" target="_blank" rel="noreferrer"><img src="./assets/instagram.svg" alt="" />Instagram <span aria-hidden="true">↗</span></a>
+          <a href="https://www.facebook.com/AllegroEcoGlampingAllegro" target="_blank" rel="noreferrer"><img src="./assets/facebook.svg" alt="" />Facebook <span aria-hidden="true">↗</span></a>
+          <a href="https://wa.link/7ivai9" target="_blank" rel="noreferrer"><img src="./assets/whatsapp.svg" alt="" />WhatsApp <span aria-hidden="true">↗</span></a>
+        </nav>
+        <a class="google-review" href="https://www.google.com/maps?cid=736951605488029392" target="_blank" rel="noreferrer">
+          <img src="./assets/google.svg" alt="" />
+          <span><strong>¿Disfrutaste tu estadía?</strong> Califícanos en Google</span>
+          <b aria-hidden="true">↗</b>
+        </a>
+      </footer>
+    </main>
+
+    <template id="control-template">
+      <article class="control-card">
+        <div class="control-icon" aria-hidden="true"></div>
+        <div class="control-copy">
+          <h3></h3>
+          <p></p>
+        </div>
+        <button class="control-switch" type="button" role="switch">
+          <span class="switch-track"><span class="switch-thumb"></span></span>
+          <span class="sr-only"></span>
+        </button>
+      </article>
+    </template>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js"></script>
+  </body>
+</html>

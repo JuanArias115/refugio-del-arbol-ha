@@ -1,0 +1,15 @@
+name: "Portal Refugio del Arbol"
+version: "0.1.0"
+slug: "refugio_del_arbol"
+description: "Portal local de controles para los huéspedes del Refugio del Árbol."
+arch:
+  - aarch64
+startup: application
+init: false
+homeassistant_api: true
+ports:
+  8099/tcp: 8099
+ports_description:
+  8099/tcp: "Portal local para huéspedes"
+options: {}
+schema: {}
