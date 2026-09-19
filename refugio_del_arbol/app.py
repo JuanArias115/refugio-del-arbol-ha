@@ -100,7 +100,6 @@ class PortalHandler(SimpleHTTPRequestHandler):
                 method="POST",
                 payload={"entity_id": control["entity_id"]},
             )
-            state = core_request(f"/states/{control['entity_id']}")
         except (HTTPError, URLError, RuntimeError, TimeoutError) as error:
             print(f"portal: failed to update {control_id}: {error}")
             self.respond_json(HTTPStatus.SERVICE_UNAVAILABLE, {"error": "El dispositivo no responde"})
@@ -108,7 +107,7 @@ class PortalHandler(SimpleHTTPRequestHandler):
 
         self.respond_json(
             HTTPStatus.OK,
-            {"id": control_id, "state": state.get("state", "unavailable")},
+            {"id": control_id, "state": "on" if desired_state else "off"},
         )
 
     def do_PUT(self) -> None:

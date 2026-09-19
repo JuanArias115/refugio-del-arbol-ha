@@ -80,6 +80,8 @@ async function toggleControl(control) {
   const card = grid.querySelector(`[data-control="${control.id}"]`);
   const button = card.querySelector(".control-switch");
   button.disabled = true;
+  control.active = desiredState;
+  updateControl(control);
   try {
     const response = await fetch(`/api/controls/${control.id}`, {
       method: "POST",
@@ -93,7 +95,10 @@ async function toggleControl(control) {
     updateControl(control);
     showToast(`${control.title}: ${labelFor(control).toLowerCase()}`);
     navigator.vibrate?.(12);
+    window.setTimeout(refreshStatus, 2000);
   } catch {
+    control.active = !desiredState;
+    updateControl(control);
     showToast(`No fue posible actualizar ${control.title.toLowerCase()}`);
     await refreshStatus();
   } finally {

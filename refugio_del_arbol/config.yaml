@@ -1,5 +1,5 @@
 name: "Portal Refugio del Arbol"
-version: "0.1.0"
+version: "0.1.1"
 slug: "refugio_del_arbol"
 description: "Portal local de controles para los huéspedes del Refugio del Árbol."
 arch:
