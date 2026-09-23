@@ -1,10 +1,4 @@
-const controls = [
-  { id: "external-lights", title: "Luces externas", icon: "lightbulb", active: false, available: true },
-  { id: "night-lights", title: "Luces nocheros", icon: "moon", active: false, available: true },
-  { id: "railing-light", title: "Luz baranda", icon: "fence", active: false, available: true },
-  { id: "bridge-light", title: "Luz puente", icon: "bridge", active: false, available: true },
-  { id: "jacuzzi-bubbles", title: "Burbujas del jacuzzi", icon: "waves", active: false, available: true, type: "jacuzzi" }
-];
+let controls = [];
 
 const icons = {
   lightbulb: '<svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.1 15.1A7 7 0 1 0 8.9 15.1c.5.5.8 1.2.8 1.9h4.6c0-.7.3-1.4.8-1.9Z"/></svg>',
@@ -34,6 +28,7 @@ function showToast(message) {
 
 function updateControl(control) {
   const card = grid.querySelector(`[data-control="${control.id}"]`);
+  if (!card) return;
   const button = card.querySelector(".control-switch");
   card.classList.toggle("is-active", control.active && control.available);
   card.classList.toggle("is-unavailable", !control.available);
@@ -63,6 +58,20 @@ async function refreshStatus() {
       control.active = false;
       updateControl(control);
     });
+  }
+}
+
+async function loadControls() {
+  try {
+    const response = await fetch("/api/config", { cache: "no-store" });
+    if (!response.ok) throw new Error("Configuración no disponible");
+    const data = await response.json();
+    controls = (data.controls || []).map((control) => ({ ...control, active: false, available: true }));
+    grid.replaceChildren();
+    renderControls();
+    await refreshStatus();
+  } catch {
+    grid.textContent = "Los controles no están disponibles en este momento.";
   }
 }
 
@@ -112,8 +121,7 @@ function renderControls() {
     const card = fragment.querySelector(".control-card");
     const button = fragment.querySelector(".control-switch");
     card.dataset.control = control.id;
-    card.classList.toggle("jacuzzi", control.type === "jacuzzi");
-    card.querySelector(".control-icon").innerHTML = icons[control.icon];
+    card.querySelector(".control-icon").innerHTML = icons[control.icon] || icons.lightbulb;
     card.querySelector("h3").textContent = control.title;
     button.addEventListener("click", () => toggleControl(control));
     grid.append(fragment);
@@ -127,6 +135,7 @@ document.querySelector("#today").textContent = new Intl.DateTimeFormat("es-ES", 
   month: "long"
 }).format(new Date());
 
-renderControls();
-refreshStatus();
-window.setInterval(refreshStatus, 30000);
+loadControls();
+window.setInterval(() => {
+  if (controls.length) refreshStatus();
+}, 30000);
