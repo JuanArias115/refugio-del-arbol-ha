@@ -13,6 +13,7 @@ RUN apk add --no-cache python3
 COPY app.py /app.py
 COPY run.sh /run.sh
 COPY www /www
+COPY admin /admin
 
 RUN chmod a+x /run.sh
 
