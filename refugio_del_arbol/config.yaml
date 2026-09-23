@@ -1,5 +1,5 @@
 name: "Portal Refugio del Arbol"
-version: "0.2.0"
+version: "0.2.1"
 slug: "refugio_del_arbol"
 description: "Portal local de controles para los huéspedes del Refugio del Árbol."
 arch:
@@ -7,11 +7,6 @@ arch:
 startup: application
 init: false
 homeassistant_api: true
-ingress: true
-ingress_port: 8100
-panel_title: "Domo 1 · Administración"
-panel_icon: "mdi:home-cog-outline"
-panel_admin: true
 ports:
   8099/tcp: 8099
 ports_description:

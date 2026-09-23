@@ -136,6 +136,4 @@ document.querySelector("#today").textContent = new Intl.DateTimeFormat("es-ES", 
 }).format(new Date());
 
 loadControls();
-window.setInterval(() => {
-  if (controls.length) refreshStatus();
-}, 30000);
+window.setInterval(loadControls, 30000);
